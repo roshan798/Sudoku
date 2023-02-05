@@ -65,6 +65,7 @@ const fillGrid = () => {
 function newGame(level) {
 	color_box = undefined;
 	clickFlag = -1;
+	currSelect = -1;
 	boardPosition = { left: 0, top: 0 };
 	// mp = {};
 	for (var member in mp) delete mp[member];
