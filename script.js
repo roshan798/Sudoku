@@ -51,8 +51,7 @@ const fillGrid = () => {
 			count++;
 		}
 	});
-	
-	//////////////galti
+
 	for(let it=1;it<10;it++) {
 		let numberBtn = document.getElementById(it);
 		numberBtn.className = "";
@@ -67,6 +66,7 @@ function newGame(level) {
 	clickFlag = -1;
 	currSelect = -1;
 	boardPosition = { left: 0, top: 0 };
+	let error = document.getElementById("error-count").innerText = 0;
 	// mp = {};
 	for (var member in mp) delete mp[member];
 	count = 0;
