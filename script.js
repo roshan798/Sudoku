@@ -10,7 +10,17 @@ let mp = {};
 let count = 0;
 let prevBox;
 let currSelect = -1;
+let Interval = undefined;
 //
+function startTimer(start) {
+	let minute = document.getElementById("minute");
+	let sec = document.getElementById("second");
+	Interval = setInterval(() => {
+		minute.innerText = parseInt(minute.innerText) + (sec.innerText == '59') ? 1 : 0;
+		sec.innerText = (parseInt(sec.innerText) + 1) % 60;
+	}, 1000);
+
+}
 function createGrid() {
 	let grid = document.createElement("div");
 	grid.classList.add("sudoku-board");
@@ -42,7 +52,7 @@ const fillGrid = () => {
 		if (board[i][j] != "0") {
 			box.classList.add("pre");
 			box.innerText = board[i][j];
-			if (mp[board[i][j]]!=undefined)
+			if (mp[board[i][j]] != undefined)
 				mp[board[i][j]]++;
 			else
 				mp[board[i][j]] = 1;
@@ -52,10 +62,10 @@ const fillGrid = () => {
 		}
 	});
 
-	for(let it=1;it<10;it++) {
+	for (let it = 1; it < 10; it++) {
 		let numberBtn = document.getElementById(it);
 		numberBtn.className = "";
-		if(mp[it]==9)
+		if (mp[it] == 9)
 			numberBtn.className = "complete";
 	}
 }
@@ -67,7 +77,6 @@ function newGame(level) {
 	currSelect = -1;
 	boardPosition = { left: 0, top: 0 };
 	let error = document.getElementById("error-count").innerText = 0;
-	// mp = {};
 	for (var member in mp) delete mp[member];
 	count = 0;
 	prevBox = undefined;
@@ -77,14 +86,16 @@ function newGame(level) {
 	ans = temp.solution;
 	changeWrapper();
 	fillGrid();
+
+	startTimer();
 }
 
 function changeWrapper() {
 	let blurElement = document.getElementById("toggle-blur");
 	let levelWrapper = document.getElementById("wrapper");
-	toggleClass(blurElement,"hide");
-	toggleClass(levelWrapper,"after");
-	toggleClass(levelWrapper,"before");
+	toggleClass(blurElement, "hide");
+	toggleClass(levelWrapper, "after");
+	toggleClass(levelWrapper, "before");
 }
 
 window.onload = function () {
@@ -92,10 +103,15 @@ window.onload = function () {
 	// This is  for the switching of level wrapper  on click of ".level"
 	document.querySelectorAll(".level").forEach((level) => {
 		level.addEventListener("click", () => {
-			if (level.id != "continue")
+			if (level.id != "continue") {
+				let minute = document.getElementById("minute").innerText = '00';
+				let sec = document.getElementById("second").innerText = '00';
 				newGame(level.id);
-			else
+			}
+			else {
+				startTimer();
 				changeWrapper();
+			}
 		});
 	});
 
@@ -103,13 +119,15 @@ window.onload = function () {
 	let levelWrapper = document.getElementById("wrapper");
 	let blurElement = document.getElementById("toggle-blur");
 	document.getElementById("new-game").addEventListener("click", () => {
+		if (Interval != undefined)
+			clearInterval(Interval);
 		changeWrapper();
 	});
 
 	let numbers = document.querySelectorAll("button");
 	numbers.forEach((number) => {
 		number.addEventListener("click", () => {
-			if (number.id != "moving-box" && number.classList != "level" && number.id != "new-game" && number.classList.contains("complete")==false) {
+			if (number.id != "moving-box" && number.classList != "level" && number.id != "new-game" && number.classList.contains("complete") == false) {
 				if (currSelect == number.id)
 					toggleEachNumber(currSelect, 0);
 				else if (currSelect != -1)
