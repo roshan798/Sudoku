@@ -16,5 +16,5 @@ Sudoku is a popular puzzle game that requires logic and critical thinking skills
 
 ## Usage
 
-To play the game, simply visit the website <a href="https://roshan798.github.io/Sudoku/">https://roshan798.github.io/Sudoku/</a> and click on the "New Game" button to generate a new Sudoku puzzle. Use the number buttons on the right side of the board to input your guesses, and click on the "Check" button to verify your solution. Use the "Reset" button to clear the board and start over.
+To play the game, simply visit the website <a href="https://roshan798.github.io/Sudoku/">https://roshan798.github.io/Sudoku/</a> and click on the "New Game" button to generate a new Sudoku puzzle. Use the number buttons on the bottom side of the board to input your guesses.
 
